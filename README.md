@@ -1,1 +1,1 @@
-# java-log4j-looging
+# java-log4j-logging
