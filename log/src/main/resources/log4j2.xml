@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <appender-ref ref="jdbcAppender">
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+   
+   <Jdbc name="databaseAppender" tableName="log">
+      <DriverManager connectionString="jdbc:postgresql://localhost:5432/LoggingDb" driverClassName="org.postgresql.Driver" username="demouser" password="demopassword"  />
+      <Column name="eventdate" isEventTimestamp="true" />
+     <Column name="level" pattern="%level" isUnicode="false" />
+     <Column name="logger" pattern="%logger{36}" isUnicode="false"/>
+      <Column name="message" pattern="%message" isUnicode="false" />
+     <Column name="exception" pattern="%exception"  isUnicode="false" />
+    </Jdbc>
+      
+  </appender-ref>
+  <Loggers>
+    <Logger name="Main.Bootstrap" level="trace" additivity="false">
+    
+     <AppenderRef ref="databaseAppender"/>
+    </Logger>
+    <Root level="trace">
+    
+     <AppenderRef ref="databaseAppender"/>
+    </Root>
+  </Loggers>
+</Configuration>
